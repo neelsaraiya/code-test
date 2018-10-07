@@ -15,8 +15,8 @@ use League\Flysystem\FileNotFoundException;
 
 class RaceController extends Controller
 {
-    const WOLFERHAMPTON_FILE = 'storage/app/public/Wolferhampton_Race1.json';
-    const CAULFIELD_FILE = 'storage/app/public/Caulfield_Race1.xml';
+    const WOLFERHAMPTON_FILE = 'public/datafeeds/Wolferhampton_Race1.json';
+    const CAULFIELD_FILE = 'public/datafeeds/Caulfield_Race1.xml';
 
     /**
      * This function reads Caulfield_Race1.xml and display horse names with price in ascending order
