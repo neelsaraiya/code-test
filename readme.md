@@ -1,4 +1,8 @@
-## Demo repo for blog re: docker + laravel
+## Code Test
 
-- [x] [Part 1 - development](https://medium.com/@shakyShane/laravel-docker-part-1-setup-for-development-e3daaefaf3c)
-- [ ] Part 2 - production (coming soon)
+Http/Controllers/RaceController.php is the main function which reads the XML/JSON files and outputs horse names sorted by price in ascending order
+
+This project is built using docker and laravel
+
+Demo - 
+Caulfield_Race1.xml
