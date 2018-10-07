@@ -18,26 +18,21 @@ class RaceController extends Controller
     const WOLFERHAMPTON_FILE = 'storage/app/public/Wolferhampton_Race1.json';
     const CAULFIELD_FILE = 'storage/app/public/Caulfield_Race1.xml';
 
-
     /**
-     * This function reads Caulfield_Race1.xml and display horsenames with price in ascending order
+     * This function reads Caulfield_Race1.xml and display horse names with price in ascending order
+     *
+     * @return array|mixed|void
+     * @return array sorted by price and horse names
+     * @throws FileNotFoundException [if file not found at desired location]
      */
     public function caulfield(){
         //Read json file and get content into an array format to parse through it
-        try{
-            $file = base_path(self::CAULFIELD_FILE);
-            if(file_exists($file)){
-                $fileContent = file_get_contents($file);
-            }else{
-                throw new FileNotFoundException($file);
-            }
-        } catch(FileNotFoundException $e){
-            echo $e->getMessage();
+        $xmlString = $this->readFile(self::CAULFIELD_FILE);
+        if(!$xmlString){
             return;
         }
 
-        $data = simplexml_load_string($fileContent);
-
+        $data = simplexml_load_string($xmlString);
 
         //create an array of horse names
         $horses = [];
@@ -63,28 +58,22 @@ class RaceController extends Controller
     }
 
     /**
-     * This function reads Wolferhampton_Race1.json and display horsenames with price in ascending order
-     * This fuunction will throw an exception is file is not found at the location
-     *
-     * @return array sorted by price and horsenames
-     * @throws FileNotFoundException [if file not found at desired location]
+     * Reads Wolferhampton_Race1.json and display horse names with price in ascending order
+     * Function will throw an exception is file is not found at the location
+
+     * @return array|mixed|void
+     * @throws FileNotFoundException
+     * @return array sorted by price and horse names
      */
     public function wolferhampton(){
         //Read json file and get content into an array format to parse through it
-        try{
-            $file = base_path(self::WOLFERHAMPTON_FILE);
-            if(file_exists($file)){
-                $jsonString = file_get_contents($file);
-            }else{
-                throw new FileNotFoundException($file);
-            }
-        } catch(FileNotFoundException $e){
-            echo $e->getMessage();
+        $jsonString = $this->readFile(self::WOLFERHAMPTON_FILE);
+        if(!$jsonString){
             return;
         }
 
-
         $data = json_decode($jsonString, true);
+
         //create an array of horse names from Participants
         $horses = [];
         foreach($data['RawData']['Participants'] as $row){
@@ -106,15 +95,40 @@ class RaceController extends Controller
         $horses = $this->sortByPrice($horses);
 
         return $horses;
-
     }
 
+    /**
+     * Sort an array based on price and return  the array
+     * @param $horses
+     * @return mixed
+     */
     public function sortByPrice($horses){
         usort($horses, function($a, $b) {
             return $a['price'] - $b['price'];
         });
 
         return $horses;
+    }
+
+    /**
+     * Read a file from a particular location and return file contents
+     * @param $file
+     * @return bool|string
+     * @throws FileNotFoundException [if file not found at desired location]
+     */
+    public function readFile($file){
+        try{
+            $file = base_path($file);
+            if(file_exists($file)){
+                $fileContents = file_get_contents($file);
+                return $fileContents;
+            }else{
+                throw new FileNotFoundException($file);
+            }
+        } catch(FileNotFoundException $e){
+            echo $e->getMessage();
+            return false;
+        }
     }
 
 }
