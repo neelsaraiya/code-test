@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/caulfield', 'RaceController@caulfield');
+Route::get('/wolferhampton', 'RaceController@wolferhampton');
