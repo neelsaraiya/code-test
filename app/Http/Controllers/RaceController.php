@@ -29,8 +29,8 @@ class RaceController extends Controller
      * This function reads Wolferhampton_Race1.json and display horsenames with price in ascending order
      * This fuunction will throw an exception is file is not found at the location
      *
-     * @return return an array sorted by price and horsenames
-     * @throws exceptionclass [FileNotFoundException] if file not found at desired location
+     * @return array sorted by price and horsenames
+     * @throws FileNotFoundException [if file not found at desired location]
      */
     public function wolferhampton(){
         //Read json file and get content into an array format to parse through it
