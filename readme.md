@@ -18,3 +18,7 @@ http://ec2-54-185-154-87.us-west-2.compute.amazonaws.com:8080/caulfield
 Wolferhampton_Race1.json
 
 http://ec2-54-185-154-87.us-west-2.compute.amazonaws.com:8080/wolferhampton
+
+## Nice to haves time permitting
+* Unit Testing
+* Robot Automated testing
